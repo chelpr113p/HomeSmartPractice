@@ -1,0 +1,56 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HomeSmartPractice" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="PinButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:background">@drawable/bg_pin_square_button</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="backgroundTint">@null</item>
+        <item name="backgroundTintMode">add</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!-- Стиль для контейнера комнаты -->
+    <style name="RoomContainer">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Стиль для иконки комнаты -->
+    <style name="RoomIcon">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:background">@drawable/selector_room_bg</item>
+        <item name="android:padding">11dp</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+
+    <!-- Стиль для текста комнаты -->
+    <style name="RoomText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:textColor">@color/selector_room_text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CircularFAB">
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="Theme.HomeSmartPractice" parent="Base.Theme.HomeSmartPractice" />
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Состояние "Выбрано" (Синий) -->
+    <item android:state_checked="true">
+        <shape android:shape="oval"> <!-- oval делает круг, как на скриншоте -->
+            <solid android:color="#0B50A0"/>
+            <size android:width="80dp" android:height="80dp"/>
+        </shape>
+    </item>
+
+    <!-- Состояние "Не выбрано" (Серый) -->
+    <item android:state_checked="false">
+        <shape android:shape="oval">
+            <solid android:color="#94949B"/>
+            <size android:width="80dp" android:height="80dp"/>
+        </shape>
+    </item>
+</selector>
