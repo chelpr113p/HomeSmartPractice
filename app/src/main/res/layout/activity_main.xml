@@ -58,7 +58,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    android:text="г. Омск,ул. Ленина, д. 24"
                     android:textColor="#94949B"
                     android:textSize="13sp" />
             </LinearLayout>

@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:columnCount="3"
-            android:rowCount="3">
+            android:rowCount="4">
 
             <Button android:id="@+id/btn_next" style="@style/PinButtonStyle" android:text="1" />
             <Button style="@style/PinButtonStyle" android:text="2" />
@@ -104,6 +104,10 @@
             <Button style="@style/PinButtonStyle" android:text="7" />
             <Button style="@style/PinButtonStyle" android:text="8" />
             <Button style="@style/PinButtonStyle" android:text="9" />
+
+            <Button style="@style/PinButtonStyle" android:text="С" />
+            <Button style="@style/PinButtonStyle" android:text="0" />
+            <Button style="@style/PinButtonStyle" android:text="⌫" />
 
         </GridLayout>
     </LinearLayout>

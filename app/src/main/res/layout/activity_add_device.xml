@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="Добавить устройства"
+            android:text="Добавить устройство"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -119,7 +119,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Кондиционер"/>
+            android:text="Кондиционер"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- Ванная -->
@@ -136,7 +137,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Вытяжка"/>
+            android:text="Вытяжка"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- ========== РЯД 2 ========== -->
@@ -157,7 +159,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Теплый пол"/>
+            android:text="Теплый пол"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- Спальня -->
@@ -173,7 +176,8 @@
             android:src="@drawable/ic_fan"/>
         <TextView
             style="@style/RoomText"
-            android:text="Вентилятор"/>
+            android:text="Вентилятор"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- Зал -->
@@ -190,7 +194,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Телевизор"/>
+            android:text="Телевизор"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <Button

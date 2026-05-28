@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "508700228080",
+    "project_id": "smarthomepractice-f18df",
+    "storage_bucket": "smarthomepractice-f18df.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508700228080:android:0ececfb03e8198b422c535",
+        "android_client_info": {
+          "package_name": "com.example.homesmartpractice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgDRCr0j6QJsuYUMJUjLuk2Bi8w2SDER4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

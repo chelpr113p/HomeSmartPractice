@@ -89,18 +89,16 @@
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
             android:hint="Введите имя пользователя"
             android:paddingBottom="4dp"
             android:textColor="#000000"
             android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="#000000" />
+            android:textStyle="bold"
+            android:enabled="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:backgroundTint="#CCCCCC" />
     </FrameLayout>
 
     <TextView
@@ -131,19 +129,17 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
             android:hint="Введите email"
             android:inputType="textEmailAddress"
             android:paddingBottom="4dp"
             android:textColor="#000000"
             android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="#000000" />
+            android:textStyle="bold"
+            android:enabled="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:backgroundTint="#CCCCCC" />
     </FrameLayout>
 
 
@@ -175,28 +171,43 @@
             android:id="@+id/etAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
             android:hint="Введите адрес"
             android:paddingBottom="4dp"
             android:textColor="#000000"
             android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="#000000" />
+            android:textStyle="bold"
+            android:enabled="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:backgroundTint="#CCCCCC" />
     </FrameLayout>
 
 
     <Button
-        android:id="@+id/btnSave"
+        android:id="@+id/btnReduct"
         android:layout_width="0dp"
-        android:layout_height="65dp"
+        android:layout_height="45dp"
         android:layout_marginHorizontal="70dp"
         android:layout_marginBottom="12dp"
         android:backgroundTint="#0B50A0"
+        android:text="Редактировать"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@id/btnSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="#32B615"
         android:text="Сохранить"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -211,7 +222,7 @@
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="0dp"
-        android:layout_height="65dp"
+        android:layout_height="45dp"
         android:layout_marginHorizontal="70dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="#FA1624"

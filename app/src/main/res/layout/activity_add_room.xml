@@ -90,7 +90,8 @@
         <TextView
             style="@style/RoomText"
             android:text="Гостиная"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            />
     </LinearLayout>
 
     <!-- Кухня -->
@@ -107,7 +108,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Кухня"/>
+            android:text="Кухня"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- Ванная -->
@@ -125,7 +127,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Ванная"/>
+            android:text="Ванная"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- ========== РЯД 2 ========== -->
@@ -147,7 +150,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Кабинет"/>
+            android:text="Кабинет"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- Спальня -->
@@ -165,7 +169,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Спальня"/>
+            android:text="Спальня"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <!-- Зал -->
@@ -183,7 +188,8 @@
 
         <TextView
             style="@style/RoomText"
-            android:text="Зал"/>
+            android:text="Зал"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <Button

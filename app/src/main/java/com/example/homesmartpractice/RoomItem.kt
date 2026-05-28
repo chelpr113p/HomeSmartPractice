@@ -2,7 +2,4 @@ package com.example.homesmartpractice
 
 import androidx.annotation.DrawableRes
 
-data class RoomItem(
-    val name: String,
-    @DrawableRes val iconRes: Int
-)
+data class RoomItem(val id: String, val name: String, val iconRes: Int)

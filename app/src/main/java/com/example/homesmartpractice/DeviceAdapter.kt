@@ -12,7 +12,7 @@ import com.example.homesmartpractice.model.DeviceItem
 
 class DeviceAdapter(
     private val items: List<DeviceItem>,
-    private val onItemClick: ((DeviceItem) -> Unit)? = null
+    private val onStatusChanged: (DeviceItem, Boolean) -> Unit // Передаем событие переключения свитча
 ) : RecyclerView.Adapter<DeviceAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -31,19 +31,15 @@ class DeviceAdapter(
         val item = items[position]
         holder.name.text = item.name
         holder.icon.setImageResource(item.iconRes)
+
+        // Важно: Сначала убираем слушатель, чтобы предотвратить баги ресайклинга при скролле
+        holder.switch.setOnCheckedChangeListener(null)
         holder.switch.isChecked = item.isEnabled
 
-        if (onItemClick != null) {
-            holder.itemView.setOnClickListener {
-                onItemClick(item)
-            }
-        } else {
-
-            holder.itemView.isClickable = false
-        }
-
+        // Ставим актуальный слушатель изменения статуса
         holder.switch.setOnCheckedChangeListener { _, isChecked ->
             item.isEnabled = isChecked
+            onStatusChanged(item, isChecked) // Передаем изменения в Активити
         }
     }
 
