@@ -33,6 +33,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".AddCustomRoomActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreatePinActivity"
             android:exported="false" />
         <activity
@@ -52,6 +55,12 @@
             android:exported="false" />
         <activity
             android:name=".AddDeviceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TvDeviceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TermDeviceActivity"
             android:exported="false" />
 
     </application>

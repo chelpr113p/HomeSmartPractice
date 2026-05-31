@@ -34,9 +34,6 @@ class MainActivity : AppCompatActivity() {
         // 1. Изначально список комнат пуст. Запускаем слушатель реального времени
         listenToRooms()
 
-        // 2. Дополнительно: загружаем реальный адрес пользователя в шапку
-        loadUserAddress()
-
         findViewById<ImageButton>(R.id.Settings_btn).setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
@@ -46,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadUserAddress()
+    }
     /**
      * Получение адреса пользователя из коллекции "users"
      */
@@ -125,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             "Кабинет" -> R.drawable.ic_office_blue
             "Спальня" -> R.drawable.ic_bedroom_blue
             "Зал" -> R.drawable.ic_tv_blue
-            else -> R.drawable.ic_kitchen_blue // Дефолтная заглушка, если совпадений нет
+            else -> R.drawable.ic_settings_blue // Дефолтная заглушка, если совпадений нет
         }
     }
 }

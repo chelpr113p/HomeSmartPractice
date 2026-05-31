@@ -38,11 +38,24 @@
         <item name="android:duplicateParentState">true</item>
     </style>
 
+    <style name="CustomRoomIcon">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:background">@drawable/selector_custom_room_bg</item>
+        <item name="android:padding">11dp</item>
+        <item name="android:duplicateParentState">true</item>
+    </style>
+
     <style name="RoomText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#94949B</item>
         <item name="android:duplicateParentState">true</item>
+    </style>
+
+    <style name="CircleImageView" parent="">
+            <item name="cornerFamily">rounded</item>
+            <item name="cornerSize">50%</item>
     </style>
 
     <style name="CircularFAB">

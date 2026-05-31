@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -21,7 +22,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var etAddress: EditText
     private lateinit var btnEdit: Button
     private lateinit var btnSave: Button
-    private lateinit var btnLogout: Button // Переменная для кнопки выхода
+    private lateinit var btnLogout: Button
 
     private var isEditing = false
 
@@ -33,6 +34,12 @@ class ProfileActivity : AppCompatActivity() {
     private val documentId by lazy { sharedPref.getString("USER_ID", "") ?: "" }
 
     private lateinit var userDocRef: DocumentReference
+
+    // Наше строгое регулярное выражение для валидации адреса
+    private val addressRegex = Regex(
+        """^г\.\s*[^,]+,\s*ул\.\s*[^,]+,\s*д\.\s*\d+[\s-]?[а-яА-Я]?(?:\s*(?:/|к|корп|стр)\.?\s*\d+)?(?:\s*,\s*кв\.\s*\d+[а-яА-Я]?)?$""",
+        RegexOption.IGNORE_CASE
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +62,11 @@ class ProfileActivity : AppCompatActivity() {
         // Загрузка данных из БД при открытии активности
         loadUserData()
 
+        // Сбрасываем ошибку адреса, когда пользователь начинает вводить текст
+        etAddress.doAfterTextChanged {
+            etAddress.error = null
+        }
+
         // Кнопка "Назад"
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
             finish()
@@ -72,7 +84,8 @@ class ProfileActivity : AppCompatActivity() {
             val email = etEmail.text.toString().trim()
             val address = etAddress.text.toString().trim()
 
-            if (validateData(username, email)) {
+            // Передаем адрес в метод валидации
+            if (validateData(username, email, address)) {
                 saveUserData(username, email, address)
             }
         }
@@ -94,7 +107,6 @@ class ProfileActivity : AppCompatActivity() {
         val intent = Intent(this, AuthorisationActivity::class.java)
 
         // Флаги CLEAR_TASK и NEW_TASK полностью стирают историю прошлых экранов.
-        // Пользователь не сможет вернуться в профиль, нажав кнопку "Назад".
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
 
@@ -143,14 +155,14 @@ class ProfileActivity : AppCompatActivity() {
                 enableEditing(false)
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Ошибка сохранения: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Ошибка保存ения: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
     /**
      * Валидация введенных данных
      */
-    private fun validateData(username: String, email: String): Boolean {
+    private fun validateData(username: String, email: String, address: String): Boolean {
         if (username.isEmpty()) {
             etUsername.error = "Имя пользователя не может быть пустым"
             etUsername.requestFocus()
@@ -166,6 +178,20 @@ class ProfileActivity : AppCompatActivity() {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.error = "Введите корректный адрес электронной почты"
             etEmail.requestFocus()
+            return false
+        }
+
+        // Валидация адреса: проверка на пустоту
+        if (address.isEmpty()) {
+            etAddress.error = "Пожалуйста, введите адрес"
+            etAddress.requestFocus()
+            return false
+        }
+
+        // Валидация адреса: проверка регулярным выражением (квартира опциональна)
+        if (!addressRegex.matches(address)) {
+            etAddress.error = "Формат: г. Город, ул. Улица, д. Дом (кв. Квартира — при наличии)"
+            etAddress.requestFocus()
             return false
         }
 

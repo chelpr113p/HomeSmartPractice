@@ -100,7 +100,7 @@
         style="@style/RoomContainer"
         app:layout_constraintTop_toTopOf="@id/layout_living_room"
         app:layout_constraintStart_toEndOf="@id/layout_living_room"
-        app:layout_constraintEnd_toStartOf="@id/layout_bathroom">
+        app:layout_constraintEnd_toStartOf="@id/layout_hall">
 
         <ImageView
             style="@style/RoomIcon"
@@ -112,9 +112,9 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
-    <!-- Ванная -->
+
     <LinearLayout
-        android:id="@+id/layout_bathroom"
+        android:id="@+id/layout_hall"
         style="@style/RoomContainer"
         app:layout_constraintTop_toTopOf="@id/layout_living_room"
         app:layout_constraintStart_toEndOf="@id/layout_kitchen"
@@ -122,15 +122,13 @@
 
         <ImageView
             style="@style/RoomIcon"
-            android:src="@drawable/ic_bathroom"
-            android:contentDescription="Ванная"/>
+            android:src="@drawable/ic_hall"/>
 
         <TextView
             style="@style/RoomText"
-            android:text="Ванная"
+            android:text="Зал"
             android:textStyle="bold"/>
     </LinearLayout>
-
     <!-- ========== РЯД 2 ========== -->
 
     <!-- Кабинет -->
@@ -175,7 +173,7 @@
 
     <!-- Зал -->
     <LinearLayout
-        android:id="@+id/layout_hall"
+        android:id="@+id/layout_custom"
         style="@style/RoomContainer"
         app:layout_constraintTop_toTopOf="@id/layout_office"
         app:layout_constraintStart_toEndOf="@id/layout_bedroom"
@@ -183,12 +181,11 @@
 
         <ImageView
             style="@style/RoomIcon"
-            android:src="@drawable/ic_hall"
-            android:contentDescription="Зал"/>
+            android:src="@drawable/ic_settings"/>
 
         <TextView
             style="@style/RoomText"
-            android:text="Зал"
+            android:text="Другая"
             android:textStyle="bold"/>
     </LinearLayout>
 

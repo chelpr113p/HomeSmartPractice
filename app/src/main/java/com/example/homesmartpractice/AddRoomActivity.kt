@@ -1,6 +1,7 @@
 package com.example.homesmartpractice
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
@@ -9,28 +10,36 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AddRoomActivity : AppCompatActivity() {
 
     private var selectedRoomId: Int? = null
-
-    // Объявляем элементы интерфейса
     private lateinit var etRoomName: EditText
     private lateinit var btnSave: Button
 
     private val db = FirebaseFirestore.getInstance()
 
-    // Достаем ID текущего пользователя из SharedPreferences
     private val sharedPref by lazy { getSharedPreferences("AppPreferences", Context.MODE_PRIVATE) }
     private val currentUserId by lazy { sharedPref.getString("USER_ID", "") ?: "" }
+
+    // Регистрируем лаунчер для ожидания результата от AddCustomRoomActivity
+    private val customRoomLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            // Если в AddCustomRoomActivity сохранение прошло успешно,
+            // закрываем и эту активити тоже
+            finish()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_room)
 
-        // Инициализация
         etRoomName = findViewById(R.id.et_room_name)
         btnSave = findViewById(R.id.btnSave)
 
@@ -41,7 +50,7 @@ class AddRoomActivity : AppCompatActivity() {
         val roomLayouts = listOf(
             findViewById<LinearLayout>(R.id.layout_living_room),
             findViewById<LinearLayout>(R.id.layout_kitchen),
-            findViewById<LinearLayout>(R.id.layout_bathroom),
+            findViewById<LinearLayout>(R.id.layout_custom), // Это наш layout_custom ("Другая")
             findViewById<LinearLayout>(R.id.layout_office),
             findViewById<LinearLayout>(R.id.layout_bedroom),
             findViewById<LinearLayout>(R.id.layout_hall)
@@ -50,6 +59,13 @@ class AddRoomActivity : AppCompatActivity() {
         roomLayouts.forEach { layout ->
             layout.setOnClickListener { clickedView ->
                 val clickedId = clickedView.id
+
+                // ПРОВЕРКА: Если нажали на "Другая" (layout_custom)
+                if (clickedId == R.id.layout_custom) {
+                    val intent = Intent(this, AddCustomRoomActivity::class.java)
+                    customRoomLauncher.launch(intent)
+                    return@setOnClickListener
+                }
 
                 if (selectedRoomId == clickedId) return@setOnClickListener
 
@@ -68,32 +84,25 @@ class AddRoomActivity : AppCompatActivity() {
             }
         }
 
-        // Логика кнопки "Сохранить"
         btnSave.setOnClickListener {
             saveRoomToDatabase()
         }
     }
 
-    /**
-     * Валидация полей и отправка данных в Firestore
-     */
     private fun saveRoomToDatabase() {
         val roomName = etRoomName.text.toString().trim()
 
-        // 1. Проверка: введено ли имя комнаты
         if (roomName.isEmpty()) {
             etRoomName.error = "Введите название комнаты"
             etRoomName.requestFocus()
             return
         }
 
-        // 2. Проверка: выбран ли тип комнаты (контейнер)
         if (selectedRoomId == null) {
             Toast.makeText(this, "Пожалуйста, выберите тип комнаты", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Получаем текст выбранного типа комнаты (например: "Гостиная", "Кухня")
         val selectedLayout = findViewById<LinearLayout>(selectedRoomId!!)
         val roomType = selectedLayout?.findTextViewInside()?.text.toString()
 
@@ -102,23 +111,19 @@ class AddRoomActivity : AppCompatActivity() {
             return
         }
 
-        // Генерируем длинный числовой ID в виде строки, как в твоем примере ("13451345306689789")
         val uniqueNumericId = System.currentTimeMillis().toString() + (100..999).random().toString()
 
-        // Формируем структуру документа комнаты
         val roomMap = hashMapOf(
             "id" to uniqueNumericId,
-            "name" to roomName,  // Кастомное имя из EditText
-            "type" to roomType,  // Тип ("Кухня", "Спальня" и т.д.)
+            "name" to roomName,
+            "type" to roomType,
             "userID" to currentUserId
         )
 
-        // Сохраняем в коллекцию "rooms" со случайным ID документа
         db.collection("rooms").document()
             .set(roomMap)
             .addOnSuccessListener {
                 Toast.makeText(this, "Комната успешно добавлена!", Toast.LENGTH_SHORT).show()
-                // Закрываем активити и автоматически возвращаемся на MainActivity
                 finish()
             }
             .addOnFailureListener { e ->
