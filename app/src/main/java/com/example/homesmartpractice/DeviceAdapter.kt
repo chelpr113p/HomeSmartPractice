@@ -12,7 +12,8 @@ import com.example.homesmartpractice.model.DeviceItem
 
 class DeviceAdapter(
     private val items: List<DeviceItem>,
-    private val onStatusChanged: (DeviceItem, Boolean) -> Unit // Передаем событие переключения свитча
+    private val onItemClicked: (DeviceItem) -> Unit,          // ДОБАВИЛИ: клик по элементу
+    private val onStatusChanged: (DeviceItem, Boolean) -> Unit // Переключение свитча
 ) : RecyclerView.Adapter<DeviceAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,14 +33,19 @@ class DeviceAdapter(
         holder.name.text = item.name
         holder.icon.setImageResource(item.iconRes)
 
-        // Важно: Сначала убираем слушатель, чтобы предотвратить баги ресайклинга при скролле
+        // Клик по всей плашке устройства (кроме свитча)
+        holder.itemView.setOnClickListener {
+            onItemClicked(item)
+        }
+
+        // Сначала убираем слушатель, чтобы избежать багов ресайклинга
         holder.switch.setOnCheckedChangeListener(null)
-        holder.switch.isChecked = item.isEnabled
+        holder.switch.setChecked(item.isEnabled)
 
         // Ставим актуальный слушатель изменения статуса
         holder.switch.setOnCheckedChangeListener { _, isChecked ->
             item.isEnabled = isChecked
-            onStatusChanged(item, isChecked) // Передаем изменения в Активити
+            onStatusChanged(item, isChecked)
         }
     }
 

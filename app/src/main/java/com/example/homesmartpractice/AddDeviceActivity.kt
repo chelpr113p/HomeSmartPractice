@@ -85,28 +85,64 @@ class AddDeviceActivity : AppCompatActivity() {
 
         val selectedLayout = findViewById<LinearLayout>(selectedId!!)
         val deviceType = selectedLayout?.findTextViewInside()?.text.toString()
-
-        // Если поле идентификатора пустое — генерируем на основе времени
         val finalId = if (customId.isEmpty()) System.currentTimeMillis().toString() else customId
 
-        val deviceMap = hashMapOf(
-            "id" to finalId,
-            "name" to deviceName,
-            "type" to deviceType,
-            "roomID" to roomId,
-            "status" to false // При создании устройство по умолчанию выключено
-        )
+        when (deviceType) {
+            "Теплый пол" -> {
+                // Явно указываем <String, Any> для hashMapOf
+                val termDeviceMap = hashMapOf<String, Any>(
+                    "id" to finalId,
+                    "name" to deviceName,
+                    "roomID" to roomId,
+                    "room_temp" to 15,
+                    "status" to false,
+                    "system_temp" to 10,
+                    "type" to deviceType
+                )
+                saveToCollection("term_device", termDeviceMap, "Теплый пол успешно добавлен!")
+            }
+            "Телевизор" -> {
+                // Явно указываем <String, Any> для hashMapOf
+                val tvDeviceMap = hashMapOf<String, Any>(
+                    "id" to finalId,
+                    "name" to deviceName,
+                    "roomID" to roomId,
+                    "type" to deviceType,
+                    "status" to false,
+                    "brightness" to 100,
+                    "channel" to 1,
+                    "nightmode" to false,
+                    "volume" to 0
+                )
+                saveToCollection("tv_device", tvDeviceMap, "Телевизор успешно добавлен!")
+            }
+            else -> {
+                // Явно указываем <String, Any> для hashMapOf
+                val deviceMap = hashMapOf<String, Any>(
+                    "id" to finalId,
+                    "name" to deviceName,
+                    "type" to deviceType,
+                    "roomID" to roomId,
+                    "status" to false
+                )
+                saveToCollection("devices", deviceMap, "Устройство успешно добавлено!")
+            }
+        }
+    }
 
-        db.collection("devices").document()
-            .set(deviceMap)
+    // Изменили тип аргумента data с HashMap на более универсальный Map
+    private fun saveToCollection(collection: String, data: Map<String, Any>, successMessage: String) {
+        db.collection(collection).document()
+            .set(data)
             .addOnSuccessListener {
-                Toast.makeText(this, "Устройство успешно добавлено!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
                 finish()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Ошибка сохранения: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
+}
 
     private fun LinearLayout.findTextViewInside(): TextView? {
         for (i in 0 until this.childCount) {
@@ -117,4 +153,3 @@ class AddDeviceActivity : AppCompatActivity() {
         }
         return null
     }
-}

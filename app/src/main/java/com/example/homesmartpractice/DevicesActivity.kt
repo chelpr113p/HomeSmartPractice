@@ -21,11 +21,15 @@ class DevicesActivity : AppCompatActivity() {
     private var roomId: String = ""
     private var roomName: String = ""
 
+    // Списки для хранения актуальных данных из трех таблиц
+    private val regularDevices = mutableListOf<DeviceItem>()
+    private val termDevices = mutableListOf<DeviceItem>()
+    private val tvDevices = mutableListOf<DeviceItem>() // ДОБАВИЛИ список телевизоров
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_devices)
 
-        // Получаем данные выбранной комнаты
         roomId = intent.getStringExtra("ROOM_ID") ?: ""
         roomName = intent.getStringExtra("ROOM_NAME") ?: "Устройства"
 
@@ -36,7 +40,6 @@ class DevicesActivity : AppCompatActivity() {
             finish()
         }
 
-        // Переходим на экран добавления устройства и прокидываем ID комнаты
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
             val intent = Intent(this, AddDeviceActivity::class.java)
             intent.putExtra("ROOM_ID", roomId)
@@ -46,48 +49,134 @@ class DevicesActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rvDevices)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Подключаем слушатель базы данных
+        // Подключаем слушатели для всех трех коллекций
         listenToDevices()
     }
 
     private fun listenToDevices() {
         if (roomId.isEmpty()) return
 
-        // Выбираем только те устройства, которые принадлежат текущей комнате
+        // 1. Слушаем обычные устройства
         db.collection("devices")
             .whereEqualTo("roomID", roomId)
             .addSnapshotListener { snapshots, e ->
                 if (e != null) {
-                    Toast.makeText(this, "Ошибка загрузки: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Ошибка загрузки устройств: ${e.message}", Toast.LENGTH_SHORT).show()
                     return@addSnapshotListener
                 }
 
-                val deviceItems = mutableListOf<DeviceItem>()
-
+                regularDevices.clear()
                 if (snapshots != null) {
                     for (doc in snapshots) {
                         val name = doc.getString("name") ?: ""
                         val type = doc.getString("type") ?: ""
                         val status = doc.getBoolean("status") ?: false
-                        val docId = doc.id // Берем уникальный системный ID документа
+                        val docId = doc.id
 
-                        // Формируем строку: Тип + Название устройства
-                        val displayName = "$type $name"
-                        val iconRes = getIconForDeviceType(type)
-
-                        deviceItems.add(DeviceItem(docId, displayName, iconRes, status))
+                        regularDevices.add(
+                            DeviceItem(docId, "$type $name", type, getIconForDeviceType(type), status)
+                        )
                     }
                 }
-
-                // Сетим адаптер и передаем логику изменения статуса в БД
-                recyclerView.adapter = DeviceAdapter(deviceItems) { clickedItem, isChecked ->
-                    db.collection("devices").document(clickedItem.docId)
-                        .update("status", isChecked)
-                        .addOnFailureListener { err ->
-                            Toast.makeText(this, "Ошибка обновления статуса: ${err.message}", Toast.LENGTH_SHORT).show()
-                        }
-                }
+                updateRecyclerView()
             }
+
+        // 2. Слушаем теплые полы
+        db.collection("term_device")
+            .whereEqualTo("roomID", roomId)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Toast.makeText(this, "Ошибка загрузки теплых полов: ${e.message}", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+
+                termDevices.clear()
+                if (snapshots != null) {
+                    for (doc in snapshots) {
+                        val name = doc.getString("name") ?: ""
+                        val type = doc.getString("type") ?: "Теплый пол"
+                        val status = doc.getBoolean("status") ?: false
+                        val docId = doc.id
+
+                        termDevices.add(
+                            DeviceItem(docId, "$type $name", type, getIconForDeviceType(type), status)
+                        )
+                    }
+                }
+                updateRecyclerView()
+            }
+
+        // 3. ДОБАВИЛИ: Слушаем телевизоры
+        db.collection("tv_device")
+            .whereEqualTo("roomID", roomId)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Toast.makeText(this, "Ошибка загрузки телевизоров: ${e.message}", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+
+                tvDevices.clear()
+                if (snapshots != null) {
+                    for (doc in snapshots) {
+                        val name = doc.getString("name") ?: ""
+                        val type = doc.getString("type") ?: "Телевизор"
+                        val status = doc.getBoolean("status") ?: false
+                        val docId = doc.id
+
+                        tvDevices.add(
+                            DeviceItem(docId, "$type $name", type, getIconForDeviceType(type), status)
+                        )
+                    }
+                }
+                updateRecyclerView()
+            }
+    }
+
+    /**
+     * Объединяет три списка и настраивает адаптер с логикой ветвления
+     */
+    private fun updateRecyclerView() {
+        val allDevices = mutableListOf<DeviceItem>().apply {
+            addAll(regularDevices)
+            addAll(termDevices)
+            addAll(tvDevices) // Добавляем телевизоры в общий список
+        }
+
+        recyclerView.adapter = DeviceAdapter(
+            allDevices,
+            onItemClicked = { clickedItem ->
+                // В зависимости от типа перенаправляем на нужную активность управления
+                when (clickedItem.type) {
+                    "Теплый пол" -> {
+                        val intent = Intent(this, TermDeviceActivity::class.java).apply {
+                            putExtra("DEVICE_ID", clickedItem.docId)
+                        }
+                        startActivity(intent)
+                    }
+                    "Телевизор" -> {
+                        // Перенаправляем на экран управления телевизором
+                        val intent = Intent(this, TvDeviceActivity::class.java).apply {
+                            putExtra("DEVICE_ID", clickedItem.docId)
+                        }
+                        startActivity(intent)
+                    }
+                }
+            },
+            onStatusChanged = { clickedItem, isChecked ->
+                // Определяем верное имя коллекции для быстрого изменения статуса (On/Off)
+                val collectionName = when (clickedItem.type) {
+                    "Теплый пол" -> "term_device"
+                    "Телевизор" -> "tv_device"
+                    else -> "devices"
+                }
+
+                db.collection(collectionName).document(clickedItem.docId)
+                    .update("status", isChecked)
+                    .addOnFailureListener { err ->
+                        Toast.makeText(this, "Ошибка обновления статуса: ${err.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+        )
     }
 
     private fun getIconForDeviceType(type: String): Int {
