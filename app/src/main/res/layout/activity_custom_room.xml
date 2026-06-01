@@ -42,20 +42,6 @@
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <EditText
-        android:id="@+id/etCustomRoomName"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="22dp"
-        android:background="@drawable/bg_edit_text"
-        android:hint="Название комнаты"
-        android:paddingHorizontal="20dp"
-        android:textColor="#2E2B36"
-        android:textColorHint="#94949B"
-        app:layout_constraintTop_toBottomOf="@id/clHeader" />
-
     <EditText
         android:id="@+id/etCustomRoomType"
         android:layout_width="match_parent"
@@ -67,7 +53,7 @@
         android:paddingHorizontal="20dp"
         android:textColor="#2E2B36"
         android:textColorHint="#94949B"
-        app:layout_constraintTop_toBottomOf="@id/etCustomRoomName" />
+        app:layout_constraintTop_toBottomOf="@id/clHeader" />
 
 
     <ImageView
@@ -76,7 +62,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="48dp"
-        android:src="@drawable/ic_settings"
+        android:src="@drawable/ic_plug"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

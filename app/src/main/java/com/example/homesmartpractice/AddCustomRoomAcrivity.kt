@@ -11,79 +11,57 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class AddCustomRoomActivity : AppCompatActivity() {
 
-    private lateinit var etCustomRoomName: EditText
     private lateinit var etCustomRoomType: EditText
     private lateinit var btnSave: Button
 
     private val db = FirebaseFirestore.getInstance()
-
-    // Достаем ID текущего пользователя из SharedPreferences
     private val sharedPref by lazy { getSharedPreferences("AppPreferences", Context.MODE_PRIVATE) }
     private val currentUserId by lazy { sharedPref.getString("USER_ID", "") ?: "" }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_custom_room)
+        setContentView(R.layout.activity_custom_room) // Убедитесь, что имя файла совпадает
 
-        // Инициализация UI элементов
-        etCustomRoomName = findViewById(R.id.etCustomRoomName)
         etCustomRoomType = findViewById(R.id.etCustomRoomType)
         btnSave = findViewById(R.id.btnSave)
 
-        // Кнопка назад просто закрывает текущий экран
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
             finish()
         }
 
-        // Логика кнопки "Сохранить"
         btnSave.setOnClickListener {
-            saveCustomRoomToDatabase()
+            saveCustomTypeToDatabase()
         }
     }
 
-    private fun saveCustomRoomToDatabase() {
-        val roomName = etCustomRoomName.text.toString().trim()
-        val roomType = etCustomRoomType.text.toString().trim()
+    private fun saveCustomTypeToDatabase() {
+        val typeName = etCustomRoomType.text.toString().trim()
 
-        // 1. Валидация названия комнаты
-        if (roomName.isEmpty()) {
-            etCustomRoomName.error = "Введите название комнаты"
-            etCustomRoomName.requestFocus()
-            return
-        }
-
-        // 2. Валидация типа комнаты
-        if (roomType.isEmpty()) {
+        if (typeName.isEmpty()) {
             etCustomRoomType.error = "Введите тип комнаты"
             etCustomRoomType.requestFocus()
             return
         }
 
-        // 3. Проверка авторизации
         if (currentUserId.isEmpty()) {
             Toast.makeText(this, "Ошибка: пользователь не авторизован", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Генерируем уникальный ID
-        val uniqueNumericId = System.currentTimeMillis().toString() + (100..999).random().toString()
+        val uniqueId = System.currentTimeMillis().toString() + (100..999).random().toString()
 
-        // Формируем структуру документа (тип берется из EditText)
-        val roomMap = hashMapOf(
-            "id" to uniqueNumericId,
-            "name" to roomName,
-            "type" to roomType,
+        // Формируем структуру документа согласно вашему скриншоту
+        val roomTypeMap = hashMapOf(
+            "id" to uniqueId,
+            "type" to typeName,
             "userID" to currentUserId
         )
 
-        // Сохраняем в Firebase Firestore
-        db.collection("rooms").document()
-            .set(roomMap)
+        db.collection("room_types").document(uniqueId)
+            .set(roomTypeMap)
             .addOnSuccessListener {
-                Toast.makeText(this, "Своя комната успешно добавлена!", Toast.LENGTH_SHORT).show()
-
-                // Устанавливаем результат OK, чтобы AddRoomActivity поняла, что нужно закрыться
-                setResult(RESULT_OK)
+                Toast.makeText(this, "Тип комнаты успешно добавлен!", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK) // Передаем успешный статус в AddRoomActivity
                 finish()
             }
             .addOnFailureListener { e ->

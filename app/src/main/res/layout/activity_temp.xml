@@ -86,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Температура:"
+            android:text="Температура системы:"
             android:textColor="#94949B"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -97,8 +97,8 @@
             android:id="@+id/tvTempValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="27°C"
+            android:layout_marginStart="10dp"
+            android:text="25°C"
             android:textColor="#0B50A0"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -106,13 +106,15 @@
             app:layout_constraintStart_toEndOf="@id/tvTempTitle"
             app:layout_constraintTop_toTopOf="@id/tvTempTitle" />
 
+
         <SeekBar
             android:id="@+id/sbTemperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:max="35"
-            android:progress="27"
+            android:layout_marginTop="16dp"
+            android:min="20"
+            android:max="50"
+            android:progress="30"
             android:progressTint="#0B50A0"
             android:thumbTint="#0B50A0"
             app:layout_constraintTop_toBottomOf="@id/tvTempTitle" />
@@ -122,17 +124,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:paddingHorizontal="12dp"
+            android:layout_marginHorizontal="10dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/sbTemperature">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="0" android:textColor="#94949B" android:textSize="12sp" android:gravity="start" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="5" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="10" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="15" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="20" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="25" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="30" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="35" android:textColor="#94949B" android:textSize="12sp" android:gravity="end" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="20" android:textColor="#94949B" android:textSize="12sp" android:gravity="start" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="50" android:textColor="#94949B" android:textSize="12sp" android:gravity="end" />
         </LinearLayout>
 
         <TextView
@@ -140,36 +136,109 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Мощность:"
+            android:text="Время отключения:"
             android:textColor="#94949B"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/llTempLabels" />
 
-        <TextView
-            android:id="@+id/tvPowerValue"
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="70%"
-            android:textColor="#0B50A0"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            app:thumbTint="#0B50A0"
+            app:trackTint="#B0BEC5"
             app:layout_constraintBottom_toBottomOf="@id/tvPowerTitle"
-            app:layout_constraintStart_toEndOf="@id/tvPowerTitle"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvPowerTitle" />
 
-        <SeekBar
-            android:id="@+id/sbPower"
+        <LinearLayout
+            android:id="@+id/llTimeInterval"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:max="100"
-            android:progress="70"
-            android:progressTint="#0B50A0"
-            android:thumbTint="#0B50A0"
-            app:layout_constraintTop_toBottomOf="@id/tvPowerTitle" />
+            android:paddingLeft="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/tvPowerTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="С"
+                android:textColor="#94949B"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:boxStrokeColor="#0B50A0"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etStartTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:text="22:00"
+                    android:textStyle="bold"
+                    android:textColor="#94949B"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="до"
+                android:textColor="#94949B"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:boxStrokeColor="#0B50A0"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEndTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:text="06:00"
+                    android:textStyle="bold"
+                    android:textColor="#94949B"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupTermControls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tvTempTitle,tvTempValue,sbTemperature,llTempLabels,tvPowerTitle,switchTime,llTimeInterval" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

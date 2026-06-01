@@ -81,6 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivAcIcon" />
 
+
         <TextView
             android:id="@+id/tvTempTitle"
             android:layout_width="wrap_content"
@@ -94,11 +95,11 @@
             app:layout_constraintTop_toBottomOf="@id/ivAcIcon" />
 
         <TextView
-            android:id="@+id/tvTempValue"
+            android:id="@+id/tvVolumeValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="27%"
+            android:text="70%"
             android:textColor="#0B50A0"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -111,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:max="35"
+            android:max="100"
             android:progress="27"
             android:progressTint="#0B50A0"
             android:thumbTint="#0B50A0"
@@ -122,21 +123,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:paddingHorizontal="12dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/sbTemperature">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="0" android:textColor="#94949B" android:textSize="12sp" android:gravity="start" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="5" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="0" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="10" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="15" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="20" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="25" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
             <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="30" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="35" android:textColor="#94949B" android:textSize="12sp" android:gravity="end" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="40" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="50" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="60" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="70" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="80" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="90" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="100" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
         </LinearLayout>
 
+
+
         <TextView
-            android:id="@+id/tvPowerTitle"
+            android:id="@+id/tvTempTitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -148,7 +153,7 @@
             app:layout_constraintTop_toBottomOf="@id/llTempLabels" />
 
         <TextView
-            android:id="@+id/tvPowerValue"
+            android:id="@+id/tvBrightnessValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -156,20 +161,126 @@
             android:textColor="#0B50A0"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/tvPowerTitle"
-            app:layout_constraintStart_toEndOf="@id/tvPowerTitle"
-            app:layout_constraintTop_toTopOf="@id/tvPowerTitle" />
+            app:layout_constraintBottom_toBottomOf="@id/tvTempTitle1"
+            app:layout_constraintStart_toEndOf="@id/tvTempTitle1"
+            app:layout_constraintTop_toTopOf="@id/tvTempTitle1" />
 
         <SeekBar
-            android:id="@+id/sbPower"
+            android:id="@+id/sbTemperature1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:max="100"
-            android:progress="70"
+            android:progress="27"
             android:progressTint="#0B50A0"
             android:thumbTint="#0B50A0"
-            app:layout_constraintTop_toBottomOf="@id/tvPowerTitle" />
+            app:layout_constraintTop_toBottomOf="@id/tvTempTitle1" />
+
+        <LinearLayout
+            android:id="@+id/llTempLabels1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/sbTemperature1">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="0" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="10" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="20" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="30" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="40" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="50" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="60" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="70" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="80" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="90" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="100" android:textColor="#94949B" android:textSize="12sp" android:gravity="center" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTempTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:text="Ночной режим:"
+            android:textColor="#94949B"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llTempLabels1" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchNightmode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:thumbTint="#0B50A0"
+            app:trackTint="#B0BEC5"
+            app:layout_constraintBottom_toBottomOf="@id/tvTempTitle2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTempTitle2" />
+
+        <TextView
+            android:id="@+id/tvPowerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Канал:"
+            android:textColor="#94949B"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTempTitle2" />
+
+        <LinearLayout
+            android:id="@+id/llTempControl"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvPowerTitle" >
+
+            <Button
+                android:id="@+id/btnTempMinus"
+                android:layout_width="66dp"
+                android:layout_height="match_parent"
+                android:text="-"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#0B50A0" />
+
+            <EditText
+                android:id="@+id/tvChannelValue"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:background="@android:color/transparent"
+                android:imeOptions="actionDone"
+                tools:text="1"
+                android:textColor="#0B50A0"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnTempPlus"
+                android:layout_width="66dp"
+                android:layout_height="match_parent"
+                android:text="+"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#0B50A0" />
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupTvControls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tvTempTitle,tvVolumeValue,sbTemperature,llTempLabels,tvTempTitle1,tvBrightnessValue,sbTemperature1,llTempLabels1,tvTempTitle2,switchNightmode,tvPowerTitle,llTempControl"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             "Кабинет" -> R.drawable.ic_office_blue
             "Спальня" -> R.drawable.ic_bedroom_blue
             "Зал" -> R.drawable.ic_tv_blue
-            else -> R.drawable.ic_settings_blue // Дефолтная заглушка, если совпадений нет
+            else -> R.drawable.ic_plug_blue // Дефолтная заглушка, если совпадений нет
         }
     }
 }

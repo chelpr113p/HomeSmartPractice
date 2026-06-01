@@ -94,10 +94,11 @@ class AddDeviceActivity : AppCompatActivity() {
                     "id" to finalId,
                     "name" to deviceName,
                     "roomID" to roomId,
-                    "room_temp" to 15,
                     "status" to false,
-                    "system_temp" to 10,
-                    "type" to deviceType
+                    "system_temp" to 25,
+                    "type" to deviceType,
+                    "time1" to "12:00",
+                    "time2" to "13:00"
                 )
                 saveToCollection("term_device", termDeviceMap, "Теплый пол успешно добавлен!")
             }
